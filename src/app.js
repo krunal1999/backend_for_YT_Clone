@@ -22,9 +22,16 @@ app.use(
     limit: "16kb",
   })
 );
+app.use(express.static("public"));
+app.use(cookieParser());
 
-app.use(express.static("public"))
+// routes imports
+import { router as userRouter } from "./routes/user.routes.js";
 
-app.use(cookieParser())
+// routes decalaration
+// app.get() when we were using this, at that time we were giving routes and controller at the same place
+// But now we have differnet files for routes and controllers, we need to use app.use()
+app.use("/api/v1/users", userRouter);
+// http://localhost:3000/api/v1/users/register
 
 export { app };
